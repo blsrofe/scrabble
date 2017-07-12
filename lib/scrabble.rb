@@ -1,7 +1,38 @@
 class Scrabble
 
   def score(word)
-    1
+    if word == "" || word == nil
+      0
+    else
+      split_word_collection = word.upcase.chars
+      point_value_collection = []
+      split_word_collection.each do |letter|
+        point = point_values[letter]
+        point_value_collection << point
+      end
+      point_value_collection
+      sum = 0
+      point_value_collection.each do |num|
+        sum += num
+      end
+      sum
+    end
+  end
+
+  def score_with_multipliers(word, multiplier_collection)
+    split_word_collection = word.upcase.chars
+    multiplier_hash = Hash[split_word_collection.zip(multiplier_collection)]
+    #change split_word_collection to point collection
+    point_value_collection =[]
+    multiplier_hash.each do |point, multiplier|
+      new_value = point * multiplier_hash
+      point_value_collection << new_value
+    end
+    sum = 0
+    point_value_collection.each do |num|
+      sum += num
+    end
+    sum
   end
 
   def point_values
