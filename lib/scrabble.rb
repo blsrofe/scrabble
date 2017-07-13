@@ -21,12 +21,10 @@ class Scrabble
 
   def score_with_multipliers(word, multiplier_collection)
     split_word_collection = word.upcase.chars
-    multiplier_hash = Hash[split_word_collection.zip(multiplier_collection)]
-    #change split_word_collection to point collection
-    point_value_collection =[]
-    multiplier_hash.each do |point, multiplier|
-      new_value = point * multiplier_hash
-      point_value_collection << new_value
+    word_point_collection = change_word_to_points(split_word_collection)
+    joined_collection = word_point_collection.zip(multiplier_collection)
+    point_value_collection = joined_collection.map do |pair|
+      pair[0] * pair[1]
     end
     sum = 0
     point_value_collection.each do |num|
@@ -45,5 +43,11 @@ class Scrabble
       "U"=>1, "V"=>4, "W"=>4, "X"=>8,
       "Y"=>4, "Z"=>10
     }
+  end
+
+  def change_word_to_points(split_word_collection)
+    split_word_collection.map do |letter|
+      point_values[letter]
+    end
   end
 end
